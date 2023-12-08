@@ -4,9 +4,7 @@ const Header = () => {
     <>
       <nav className="navbar navbar-expand-lg vw-100 bg-body-tertiary">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
-            Mcga-Liberia
-          </a>
+          <Link to={"/"}>Mcga-Librería</Link>
           <button
             className="navbar-toggler"
             type="button"
