@@ -11,7 +11,7 @@ function App() {
   return (
     <>
       <Layout/>
-      <h1>App</h1>
+      <h4 className="text-center p-3 fs-1 m-0 bg-dark text-light ">Librería Online Mcga</h4>
       <Routes>
         <Route path="/" element={<Home/>}></Route>
         <Route path="/login" element={<Login/>}></Route>
