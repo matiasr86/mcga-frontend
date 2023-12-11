@@ -4,8 +4,13 @@ export interface UserState{
 }
 
 export interface Books {
-  id: string;
-  title :string;
-  author :string;
-  activo: boolean;
+  _id: string;
+  titulo :string;
+  autor :string;
+  isbn:string;
+  genero: string;
+  publicacion: Date;
+  editorial: string;
+  nroPaginas: number
+
 }
