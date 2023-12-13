@@ -1,7 +1,9 @@
+import BooksList from "../components/BooksList";
+
 const Books = () => {
   return ( 
     <>
-      <h2>Nuestros Libros</h2>
+      <BooksList/>
     </>
    );
 }

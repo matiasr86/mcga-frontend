@@ -1,20 +1,19 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../src/firebase";
+import { SubmitHandler, useForm, FieldValues } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
-import {useState} from 'react';
 import LogOut from "./LogOut";
 
 
 const LogIn = () => {
   const { isLoggedIn, login} = useAuth();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { register, handleSubmit, formState: { errors }} = useForm();
   const navigate = useNavigate();
   
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const email = data.email;
+    const password = data.password;
     try {
       const userCredencial = await signInWithEmailAndPassword(
         auth,
@@ -41,21 +40,25 @@ const LogIn = () => {
         <LogOut />
       ) : (
         <div>
-          <form onSubmit={handleLogin}>
+          <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-3">
             <h2 className="text-white text center mb-2">Log in</h2>
             <input
               type="email"
               className="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
               placeholder="Example@exammple.com"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
+              {...register("email", {
+                required: true,
+                pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
+              })}
+              {...(errors.email?.type === "required" && (
+                <p className="text-danger">El campo es requerido</p>
+              ))}
+              {...(errors.email?.type === "pattern" && (
+                <p className="text-danger">Formato incorrecto</p>
+              ))}
             />
-            <div id="emailHelp" className="form-text text-white">
+            <div className="form-text text-white">
               Nunca compartiremos tu e-mail con alguien mas.
             </div>
           </div>
@@ -63,15 +66,23 @@ const LogIn = () => {
             <input
               type="password"
               className="form-control"
-              id="exampleInputPassword1"
               placeholder="Password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
+              {...register("password", {
+                required: true,
+                maxLength: 10,
+                minLength: 3,
+              })}
+              {...(errors.autor?.type === "required" && (
+                <p className="text-danger">El campo es requerido</p>
+              ))}
+              {...(errors.autor?.type === "maxLength" && (
+                <p className="text-danger">Máximo 10 caracteres</p>
+              ))}
+              {...(errors.autor?.type === "minLength" && (
+                <p className="text-danger">Mínimo 3 caracteres</p>
+              ))}
             />
           </div>
-
           <button type="submit" className="btn btn-primary">
             Log in
           </button>
