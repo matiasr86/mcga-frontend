@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 
 const BooksList = () => {
   const [books, setBooks] = useState<Book[]>([]);
@@ -24,11 +25,16 @@ const BooksList = () => {
 
   const handleDelete = async (Id: string) => {
     try {
-      await axios.delete(`http://localhost:3000/libro/${Id}`);
-      // Actualizar el estado después de la eliminación
-      setBooks((prevBooks) => prevBooks.filter((book) => book._id !== Id));
+      const confirmacionEliminar = await deleteAlert();
+
+      if (confirmacionEliminar) {
+        await axios.delete(`http://localhost:3000/libro/${Id}`);
+        // Actualizar el estado después de la eliminación
+        setBooks((prevBooks) => prevBooks.filter((book) => book._id !== Id));
+      }
     } catch (error) {
       console.error("Error al intentar borrar el libro:", error);
+      errorAlert();
     }
   };
 
@@ -44,6 +50,46 @@ const BooksList = () => {
     // Asume que dateString es un formato válido para el constructor de Date
     const date = new Date(dateString);
     return format(date, "dd/MM/yyyy");
+  };
+
+  const deleteAlert = async (): Promise<boolean> => {
+    try {
+      const respuesta = await swal({
+        title: "Eliminar",
+        text: "¿Desea realmente eliminar el registro?",
+        icon: "warning",
+        buttons: ["No Eliminar", "Eliminar"],
+      });
+
+      if (respuesta) {
+        successAlert();
+        return true; // Confirmación para eliminar
+      } else {
+        return false; // Cancelar la eliminación
+      }
+    } catch (error) {
+      console.error("Error en la alerta de eliminación:", error);
+      errorAlert();
+      return false; // Cancelar la eliminación en caso de error
+    }
+  };
+
+  const successAlert = () => {
+    swal({
+      title: "Eliminar",
+      text: "Libro eliminado con exito",
+      icon: "success",
+      timer: 2000,
+    });
+  };
+
+  const errorAlert = () => {
+    swal({
+      title: "Eliminar",
+      text: "El libro no pudo ser eliminado",
+      icon: "error",
+      timer: 2000,
+    });
   };
 
   return (

@@ -6,6 +6,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { format } from "date-fns";
+import swal from "sweetalert";
 
 const BookEdit = () => {
   const { id } = useParams();
@@ -58,12 +59,32 @@ const BookEdit = () => {
       );
       // Manejar la respuesta del servidor según sea necesario
       console.log("Libro editado con éxito:", response.data);
+      successAlert();
       // Redirigir al usuario a la página del listado de libros
       navigate("/books");
     } catch (error) {
       // Manejar errores de la solicitud
       console.error("Error al guardar los cambios del libro:", error);
+      errorAlert();
     }
+  };
+
+  const successAlert = () => {
+    swal({
+      title: "Edición",
+      text: "Libro editado con exito",
+      icon: "success",
+      timer: 2000,
+    });
+  };
+
+  const errorAlert = () => {
+    swal({
+      title: "Edición",
+      text: "El libro no pudo ser editado",
+      icon: "error",
+      timer: 2000,
+    });
   };
 
   return (

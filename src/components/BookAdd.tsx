@@ -1,9 +1,9 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { BookToAdd } from "../interfaces/interfaces";
 import { dateValid } from "./Validators";
-import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 
 const BookAdd = () => {
   const {
@@ -11,7 +11,6 @@ const BookAdd = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<BookToAdd>();
-  const [redirect, setRedirect] = useState(false); // Nuevo estado para la redirección
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<BookToAdd> = async (data) => {
@@ -19,18 +18,33 @@ const BookAdd = () => {
       const response = await axios.post("http://localhost:3000/libro", data);
       // Manejar la respuesta del servidor según sea necesario
       console.log("Libro agregado con éxito:", response.data);
+      successAlert();
       // Redirigir al usuario a la página del listado de libros
-      setRedirect(true);
+      navigate("/books");
     } catch (error) {
       // Manejar errores de la solicitud
       console.error("Error al agregar el libro:", error);
+      errorAlert();
     }
   };
 
-  // Redirigir a la página del listado de libros si se establece el estado 'redirect'
-  if (redirect) {
-    navigate("/books");
-  }
+  const successAlert = () => {
+    swal({
+      title: "Agregar",
+      text: "Libro agregado con exito",
+      icon: "success",
+      timer: 2000,
+    });
+  };
+
+  const errorAlert = () => {
+    swal({
+      title: "Edición",
+      text: "El libro no pudo ser editado",
+      icon: "error",
+      timer: 2000,
+    });
+  };
 
   return (
     <>
