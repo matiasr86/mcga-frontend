@@ -1,10 +1,11 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { getAuth, onAuthStateChanged} from "firebase/auth";
+import { getAuth, onAuthStateChanged, User} from "firebase/auth";
 
 // Definimos el tipo para el contexto
 interface AuthContextProps {
   isLoggedIn: boolean;
+  user: User | undefined;
 }
 
 // Creamos el contexto con un valor inicial
@@ -15,6 +16,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [isLoggedIn, setLoggedIn] = useState(false);
+  const [user, setUser] = useState<User | undefined>();
 
   // Estado para rastrear si se está cargando la información de autenticación
   const [loading, setLoading] = useState(true);
@@ -28,7 +30,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       // Actualizar el estado del usuario
       if(user){
-        setLoggedIn(true)
+        setLoggedIn(true);
+        setUser(user);
       }else{
         setLoggedIn(false)
       }
@@ -46,7 +49,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   }
 
   return (
-    <AuthContext.Provider value={{isLoggedIn}}>
+    <AuthContext.Provider value={{isLoggedIn, user}}>
       {children}
     </AuthContext.Provider>
   );
