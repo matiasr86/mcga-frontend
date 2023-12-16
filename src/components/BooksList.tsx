@@ -1,16 +1,18 @@
-import { Books } from "../interfaces/interfaces";
+import { Book } from "../interfaces/interfaces";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { format } from "date-fns";
+import {useNavigate } from "react-router-dom";
 
 const BooksList = () => {
-  const [books, setBooks] = useState<Books[]>([]);
+  const [books, setBooks] = useState<Book[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:3000/libro");
-        const booksData: Books[] = response.data;
+        const booksData: Book[] = response.data;
         setBooks(booksData);
       } catch (error) {
         console.error("Error en la carga de libros:", error);
@@ -20,21 +22,24 @@ const BooksList = () => {
     fetchData();
   }, []);
 
-  const handleDelete = async (Id: string) => {
+   const handleDelete = async (Id: string) => {
     try {
-      await axios.delete(`http://localhost:3000/libro/${Id}`);
+       await axios.delete(`http://localhost:3000/libro/${Id}`);
       // Actualizar el estado después de la eliminación
-      setBooks((prevBooks) => prevBooks.filter((book) => book.id !== Id));
-    } catch (error) {
-      console.error('Error al intentar borrar el libro:', error);
-    }
+      setBooks((prevBooks) => prevBooks.filter((book) => book._id !== Id)); 
+
+     } catch (error) {
+     console.error("Error al intentar borrar el libro:", error);
+   }
   };
 
-
-
-
-
-
+  const handleEdit = async (Id: string) => {
+     try {
+      navigate(`/books/edit/${Id}`);
+    } catch (error) {
+      console.error("Error al intentar editar el libro:", error);
+    } 
+  };
 
   const formatDate = (dateString: Date) => {
     // Asume que dateString es un formato válido para el constructor de Date
@@ -42,32 +47,15 @@ const BooksList = () => {
     return format(date, "dd/MM/yyyy");
   };
 
-  /*   const createBook = async (bookData: BookData) => {
-    const response = await axios.post("https://example.com/posts", bookData);
-    return response.data;
-  };
-
-  const updateBook = async (id: string, bookData: BookData) => {
-    const response = await axios.put(`https://example.com/posts/${id}`, bookData);
-    return response.data;
-  };
-
-  */
 
   return (
     <>
-      <div className="container-fluid py2">
-        <h2>Nuestros Libros</h2>
-        <div>
-          <button type="submit" className="btn btn-primary">
-            Nuevo Libro
-          </button>
-        </div>
+      <div>
         <div className="text-end px-3">
-        <span>
-          Cantidad de libros registrados:{" "}
-          {books.length === 0 ? "0" : books.length}
-        </span>
+          <span>
+            Cantidad de libros registrados:{" "}
+            {books.length === 0 ? "0" : books.length}
+          </span>
         </div>
         <table className="table">
           <thead>
@@ -85,18 +73,28 @@ const BooksList = () => {
             </tr>
           </thead>
           <tbody>
-            {books.map((books: Books) => (
-              <tr key={books.id}>
-                <td>{books.titulo}</td>
-                <td>{books.autor}</td>
-                <td>{books.isbn}</td>
-                <td>{books.genero}</td>
-                <td>{formatDate(books.fechaPublicacion)}</td>
-                <td>{books.editorial}</td>
-                <td className="text-center">{books.numPaginas}</td>
+            {books.map((book: Book) => (
+              <tr key={book._id}>
+                <td>{book.titulo}</td>
+                <td>{book.autor}</td>
+                <td>{book.isbn}</td>
+                <td>{book.genero}</td>
+                <td>{formatDate(book.fechaPublicacion)}</td>
+                <td>{book.editorial}</td>
+                <td className="text-center">{book.numPaginas}</td>
                 <td className="text-center">
-                  <button className="btn btn-warning">Editar</button>
-                  <button onClick={() => handleDelete(books.id)} className="btn btn-danger mx-1">Eliminar</button>
+                  <button
+                    onClick={() => handleEdit(book._id)}
+                    className="btn btn-warning"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    onClick={() => handleDelete(book._id)}
+                    className="btn btn-danger mx-1"
+                  >
+                    Eliminar
+                  </button>
                 </td>
               </tr>
             ))}

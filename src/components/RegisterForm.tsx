@@ -1,21 +1,21 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../src/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { SubmitHandler, useForm, FieldValues } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../firebase";
 import { useAuth } from "../context/AuthProvider";
 import LogOut from "./LogOut";
 
-
-const LogIn = () => {
-  const { isLoggedIn, login} = useAuth();
-  const { register, handleSubmit, formState: { errors }} = useForm();
+const RegisterForm = () => {
+  const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
-  
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  const { register, handleSubmit, formState: { errors }} = useForm();
+
+  const onSubmit:SubmitHandler<FieldValues> = async (data) => {
     const email = data.email;
     const password = data.password;
+
     try {
-      const userCredencial = await signInWithEmailAndPassword(
+      const userCredencial = await createUserWithEmailAndPassword(
         auth,
         email,
         password
@@ -24,25 +24,19 @@ const LogIn = () => {
       const accessToken = await user.getIdToken(true);
       localStorage.setItem("Token", accessToken);
       localStorage.setItem("User", JSON.stringify(user));
-      login();
       navigate("/");
     } catch (error) {
       console.log(error);
     }
   };
-
-  const redireccionar = () => {
-    navigate("/register");
-  };
   return (
     <>
-      {isLoggedIn ? (
+      {isLoggedIn? (
         <LogOut />
       ) : (
-        <div>
-          <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-3">
-            <h2 className="text-white text center mb-2">Log in</h2>
+            <h2 className="text-white text center mb-2">Registro</h2>
             <input
               type="email"
               className="form-control"
@@ -58,12 +52,12 @@ const LogIn = () => {
                 <p className="text-danger">Formato incorrecto</p>
               ))}
             />
-            <div className="form-text text-white">
+            <div id="emailHelp" className="form-text text-white">
               Nunca compartiremos tu e-mail con alguien mas.
             </div>
           </div>
           <div className="mb-3">
-            <input
+          <input
               type="password"
               className="form-control"
               placeholder="Password"
@@ -72,34 +66,24 @@ const LogIn = () => {
                 maxLength: 10,
                 minLength: 3,
               })}
-              {...(errors.autor?.type === "required" && (
+              {...(errors.password?.type === "required" && (
                 <p className="text-danger">El campo es requerido</p>
               ))}
-              {...(errors.autor?.type === "maxLength" && (
+              {...(errors.password?.type === "maxLength" && (
                 <p className="text-danger">Máximo 10 caracteres</p>
               ))}
-              {...(errors.autor?.type === "minLength" && (
+              {...(errors.password?.type === "minLength" && (
                 <p className="text-danger">Mínimo 3 caracteres</p>
               ))}
             />
           </div>
           <button type="submit" className="btn btn-primary">
-            Log in
+            Registrar
           </button>
         </form>
-          <div className="form-text text-white mt-3">
-            Eres nuevo usuario, entonces regístrate.
-            <button
-              className="btn btn-primary my-1 w-100 "
-              onClick={redireccionar}
-            >
-              Registrese
-            </button>
-          </div>
-        </div>
       )}
     </>
   );
 };
 
-export default LogIn;
+export default RegisterForm;

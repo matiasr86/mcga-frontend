@@ -1,5 +1,5 @@
 import BooksHome from "../components/BooksHome";
-import LogIn from "../components/LogIn";
+import LogIn from "../components/LogInForm";
 
 const Home = () => {
   return (

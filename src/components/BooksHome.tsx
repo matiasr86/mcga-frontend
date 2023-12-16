@@ -1,16 +1,15 @@
-import { Books } from "../interfaces/interfaces";
+import { Book } from "../interfaces/interfaces";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
 const BooksHome = () => {
-  const [books, setBooks] = useState<Books[]>([]);
+  const [books, setBooks] = useState<Book[]>([]);
 
   useEffect(() => {
-    console.log("dentro del useEffect");
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:3000/libro");
-        const booksData: Books[] = response.data;
+        const booksData: Book[] = response.data;
         setBooks(booksData);
       } catch (error) {
         console.error("Error fetching books:", error);
@@ -40,7 +39,7 @@ const BooksHome = () => {
             </tr>
           </thead>
           <tbody>
-            {books.map((books: Books) => (
+            {books.map((books: Book) => (
               <tr key={books._id}>
                 <td>{books.titulo}</td>
                 <td>{books.autor}</td>

@@ -1,10 +1,10 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+
+import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { getAuth, onAuthStateChanged} from "firebase/auth";
 
 // Definimos el tipo para el contexto
 interface AuthContextProps {
   isLoggedIn: boolean;
-  login: () => void;
-  logout: () => void;
 }
 
 // Creamos el contexto con un valor inicial
@@ -16,18 +16,37 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [isLoggedIn, setLoggedIn] = useState(false);
 
-  const login = () => {
-    // Lógica de inicio de sesión, por ejemplo, cambiar el estado a true
-    setLoggedIn(true);
-  };
+  // Estado para rastrear si se está cargando la información de autenticación
+  const [loading, setLoading] = useState(true);
 
-  const logout = () => {
-    // Lógica de cierre de sesión, por ejemplo, cambiar el estado a false
-    setLoggedIn(false);
-  };
+  // Efecto secundario para suscribirse a los cambios en la autenticación
+  useEffect(() => {
+    // Obtener la instancia de autenticación
+    const auth = getAuth();
+    
+    // Función para manejar los cambios en la autenticación
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      // Actualizar el estado del usuario
+      if(user){
+        setLoggedIn(true)
+      }else{
+        setLoggedIn(false)
+      }
+      // Indicar que la carga ha finalizado
+      setLoading(false);
+    });
+
+    // Función de limpieza para cancelar la suscripción cuando el componente se desmonta
+    return () => unsubscribe();
+  }, []);
+
+  // Si aún se está cargando la información de autenticación, mostrar un mensaje de carga
+  if (loading) {
+    return <div>Cargando...</div>;
+  }
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+    <AuthContext.Provider value={{isLoggedIn}}>
       {children}
     </AuthContext.Provider>
   );
@@ -41,3 +60,4 @@ export const useAuth = () => {
   }
   return context;
 };
+ 

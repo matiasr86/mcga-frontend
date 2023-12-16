@@ -1,7 +1,8 @@
 import React from "react";
-import LogIn from "../components/LogIn";
+import LogIn from "../components/LogInForm";
 
-const Login: React.FC = () => {
+
+const Login = () => {
   return (
     <>
       <div className="row vw-100 bg-dark">

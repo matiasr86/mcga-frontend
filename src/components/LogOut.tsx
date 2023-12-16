@@ -1,23 +1,23 @@
 import { signOut } from "firebase/auth";
-import { useAuth } from "../context/AuthProvider";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthProvider";
+
 
 const LogOut = () => {
-  const { isLoggedIn, logout } = useAuth();
+  const isLoggedIn = useAuth();
   const navigate = useNavigate();
 
   const handleLogOut = async () => {
     await signOut(auth);
     localStorage.removeItem("Token");
     localStorage.removeItem("User");
-    logout();
     navigate("/");
   };
   return (
     <>
       <div className="container-fluid py-4 d-flex justify-content-center">
-        {isLoggedIn ? (
+        {isLoggedIn? (
           <>
           <div className="text-center">
             <h2 className="text-white pb-2">Sesión iniciada</h2>

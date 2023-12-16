@@ -3,7 +3,7 @@ export interface UserState{
   state: boolean;
 }
 
-export interface BooksToAdd {
+export interface BookToAdd {
   titulo: string;
   autor: string;
   isbn: string;
@@ -13,8 +13,8 @@ export interface BooksToAdd {
   numPaginas: number;
 }
 
-export interface Books {
-  id: string
+export interface Book {
+  _id: string
   titulo: string;
   autor: string;
   isbn: string;

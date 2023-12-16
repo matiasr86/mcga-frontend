@@ -21,7 +21,7 @@ function App() {
         <Route path="/about" element={<About/>}></Route>
         <Route path="/books" element={<RequireAuth><Books/></RequireAuth>}></Route>
         <Route path="/books/add" element={<RequireAuth><AddBook/></RequireAuth>}></Route>
-        <Route path="/books/edit" element={<RequireAuth><EditBook/></RequireAuth>}></Route>
+        <Route path="/books/edit/:id" element={<RequireAuth><EditBook/></RequireAuth>}></Route>
       </Routes>
     </>
   )
