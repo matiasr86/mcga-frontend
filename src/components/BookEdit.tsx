@@ -1,39 +1,46 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { BookToAdd } from "../interfaces/interfaces";
 import { dateValid } from "./Validators";
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { format } from "date-fns";
-
 
 const BookEdit = () => {
   const { id } = useParams();
   const [book, setBook] = useState<BookToAdd>();
 
   useEffect(() => {
-    const getBook = async() =>{
+    const getBook = async () => {
       try {
         // Realizar una solicitud a la API para obtener los datos del libro por id
         const response = await axios.get(`http://localhost:3000/libro/${id}`);
-        setBook(response.data)
+        setBook(response.data);
       } catch (error) {
         console.error("Error al obtener los datos del libro", error);
       }
-    }
+    };
     getBook();
   }, [id]);
-  
+
   // Obtener datos del libro al cargar el componente
-  const {register,handleSubmit,formState: { errors }, setValue} = useForm<BookToAdd>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm<BookToAdd>();
 
   useEffect(() => {
     if (book) {
-      Object.keys(book).forEach(key => {
+      Object.keys(book).forEach((key) => {
         // Formatear la fecha antes de establecerla en el formulario
-        if (key === 'fechaPublicacion') {
-          setValue(key as keyof BookToAdd, format(new Date(book[key as keyof BookToAdd]), 'yyyy-MM-dd'));
+        if (key === "fechaPublicacion") {
+          setValue(
+            key as keyof BookToAdd,
+            format(new Date(book[key as keyof BookToAdd]), "yyyy-MM-dd")
+          );
         } else {
           setValue(key as keyof BookToAdd, book[key as keyof BookToAdd]);
         }
@@ -45,18 +52,19 @@ const BookEdit = () => {
 
   const onSubmit: SubmitHandler<BookToAdd> = async (data) => {
     try {
-      const response = await axios.put(`http://localhost:3000/libro/${id}`, data);
+      const response = await axios.put(
+        `http://localhost:3000/libro/${id}`,
+        data
+      );
       // Manejar la respuesta del servidor según sea necesario
       console.log("Libro editado con éxito:", response.data);
       // Redirigir al usuario a la página del listado de libros
       navigate("/books");
-
     } catch (error) {
       // Manejar errores de la solicitud
       console.error("Error al guardar los cambios del libro:", error);
     }
   };
-
 
   return (
     <>
@@ -240,7 +248,9 @@ const BookEdit = () => {
             )}
           </div>
         </div>
-        <button className="btn btn-success my-1" type="submit">Guardar cambios</button>
+        <button className="btn btn-success my-1" type="submit">
+          Guardar cambios
+        </button>
       </form>
     </>
   );

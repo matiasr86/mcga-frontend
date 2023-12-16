@@ -1,40 +1,42 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { BookToAdd } from "../interfaces/interfaces";
 import { dateValid } from "./Validators";
-import { useState} from 'react';
+import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const BookAdd = () => {
-  const { register, handleSubmit, formState: { errors }} = useForm<BookToAdd>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<BookToAdd>();
   const [redirect, setRedirect] = useState(false); // Nuevo estado para la redirección
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<BookToAdd> = async (data) => {
     try {
-        const response = await axios.post("http://localhost:3000/libro", data);
-        // Manejar la respuesta del servidor según sea necesario
-        console.log('Libro agregado con éxito:', response.data);
-        // Redirigir al usuario a la página del listado de libros
-        setRedirect(true);
-      }
-
-    catch (error) {
+      const response = await axios.post("http://localhost:3000/libro", data);
+      // Manejar la respuesta del servidor según sea necesario
+      console.log("Libro agregado con éxito:", response.data);
+      // Redirigir al usuario a la página del listado de libros
+      setRedirect(true);
+    } catch (error) {
       // Manejar errores de la solicitud
-      console.error('Error al agregar el libro:', error);
+      console.error("Error al agregar el libro:", error);
     }
   };
 
-    // Redirigir a la página del listado de libros si se establece el estado 'redirect'
-    if (redirect) {
-      navigate('/books');
-    }
+  // Redirigir a la página del listado de libros si se establece el estado 'redirect'
+  if (redirect) {
+    navigate("/books");
+  }
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-            <div className="fw-bold">
+          <div className="fw-bold">
             <label htmlFor="titulo" className="form-label">
               Título
             </label>
@@ -67,7 +69,7 @@ const BookAdd = () => {
             </label>
           </div>
           <div className="mb-3">
-          <input
+            <input
               type="text"
               className="form-control"
               {...register("autor", {
@@ -77,14 +79,14 @@ const BookAdd = () => {
               })}
             />
             {errors.autor?.type === "required" && (
-                <p className="text-danger">El campo es requerido</p>
-              )}
-              {errors.autor?.type === "maxLength" && (
-                <p className="text-danger">Máximo 40 caracteres</p>
-              )}
-              {errors.autor?.type === "minLength" && (
-                <p className="text-danger">Mínimo 3 caracteres</p>
-              )}
+              <p className="text-danger">El campo es requerido</p>
+            )}
+            {errors.autor?.type === "maxLength" && (
+              <p className="text-danger">Máximo 40 caracteres</p>
+            )}
+            {errors.autor?.type === "minLength" && (
+              <p className="text-danger">Mínimo 3 caracteres</p>
+            )}
           </div>
         </div>
         <div>
@@ -94,7 +96,7 @@ const BookAdd = () => {
             </label>
           </div>
           <div className="mb-3">
-          <input
+            <input
               type="text"
               className="form-control"
               {...register("isbn", {
@@ -104,14 +106,14 @@ const BookAdd = () => {
               })}
             />
             {errors.isbn?.type === "required" && (
-                <p className="text-danger">El campo es requerido</p>
-              )}
-              {errors.isbn?.type === "maxLength" && (
-                <p className="text-danger">Máximo 40 caracteres</p>
-              )}
-              {errors.isbn?.type === "minLength" && (
-                <p className="text-danger">Mínimo 3 caracteres</p>
-              )}
+              <p className="text-danger">El campo es requerido</p>
+            )}
+            {errors.isbn?.type === "maxLength" && (
+              <p className="text-danger">Máximo 40 caracteres</p>
+            )}
+            {errors.isbn?.type === "minLength" && (
+              <p className="text-danger">Mínimo 3 caracteres</p>
+            )}
           </div>
         </div>
         <div>
@@ -121,7 +123,7 @@ const BookAdd = () => {
             </label>
           </div>
           <div className="mb-3">
-          <input
+            <input
               type="text"
               className="form-control"
               {...register("genero", {
@@ -131,24 +133,24 @@ const BookAdd = () => {
               })}
             />
             {errors.genero?.type === "required" && (
-                <p className="text-danger">El campo es requerido</p>
-              )}
-              {errors.genero?.type === "maxLength" && (
-                <p className="text-danger">Máximo 40 caracteres</p>
-              )}
-              {errors.genero?.type === "minLength" && (
-                <p className="text-danger">Mínimo 3 caracteres</p>
-              )}
+              <p className="text-danger">El campo es requerido</p>
+            )}
+            {errors.genero?.type === "maxLength" && (
+              <p className="text-danger">Máximo 40 caracteres</p>
+            )}
+            {errors.genero?.type === "minLength" && (
+              <p className="text-danger">Mínimo 3 caracteres</p>
+            )}
           </div>
         </div>
-        <div className='col-4'>
+        <div className="col-4">
           <div className="fw-bold">
             <label htmlFor="fechaPublicacion" className="form-label">
               Fecha de Publicación
             </label>
           </div>
           <div className="mb-3">
-          <input
+            <input
               type="date"
               className="form-control"
               {...register("fechaPublicacion", {
@@ -157,11 +159,13 @@ const BookAdd = () => {
               })}
             />
             {errors.fechaPublicacion?.type === "required" && (
-                <p className="text-danger">El campo es requerido</p>
-              )}
-              {errors.fechaPublicacion?.type === "validate" && (
-                <p className="text-danger">La fecha debe ser anterior a la actual</p>
-              )}
+              <p className="text-danger">El campo es requerido</p>
+            )}
+            {errors.fechaPublicacion?.type === "validate" && (
+              <p className="text-danger">
+                La fecha debe ser anterior a la actual
+              </p>
+            )}
           </div>
         </div>
         <div>
@@ -171,7 +175,7 @@ const BookAdd = () => {
             </label>
           </div>
           <div className="mb-3">
-          <input
+            <input
               type="text"
               className="form-control"
               {...register("editorial", {
@@ -181,36 +185,38 @@ const BookAdd = () => {
               })}
             />
             {errors.editorial?.type === "required" && (
-                <p className="text-danger">El campo es requerido</p>
-              )}
-              {errors.editorial?.type === "maxLength" && (
-                <p className="text-danger">Máximo 40 caracteres</p>
-              )}
-              {errors.editorial?.type === "minLength" && (
-                <p className="text-danger">Mínimo 3 caracteres</p>
-              )}
+              <p className="text-danger">El campo es requerido</p>
+            )}
+            {errors.editorial?.type === "maxLength" && (
+              <p className="text-danger">Máximo 40 caracteres</p>
+            )}
+            {errors.editorial?.type === "minLength" && (
+              <p className="text-danger">Mínimo 3 caracteres</p>
+            )}
           </div>
         </div>
-        <div className='col-4'>
+        <div className="col-4">
           <div className="fw-bold">
             <label htmlFor="numPaginas" className="form-label">
               Nro páginas
             </label>
           </div>
           <div className="mb-3">
-          <input
+            <input
               type="number"
               className="form-control"
               {...register("numPaginas", {
                 required: true,
               })}
-              />
-              {errors.numPaginas?.type === "required" && (
-                <p className="text-danger">El campo es requerido</p>
-              )}
+            />
+            {errors.numPaginas?.type === "required" && (
+              <p className="text-danger">El campo es requerido</p>
+            )}
           </div>
         </div>
-        <button className="btn btn-success my-1" type="submit">Registrar Libro</button>
+        <button className="btn btn-success my-1" type="submit">
+          Registrar Libro
+        </button>
       </form>
     </>
   );

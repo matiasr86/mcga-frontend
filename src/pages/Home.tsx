@@ -1,11 +1,12 @@
 import BooksHome from "../components/BooksHome";
 import LogIn from "../components/LogInForm";
 
+
 const Home = () => {
   return (
     <>
       <div className="row  mx-auto">
-        <div className="container col-12 col-md-4 col-lg-3 px-4 vh-100  bg-dark ">
+        <div className="container col-12 col-md-4 col-lg-3 px-4 py-4 bg-dark ">
           <LogIn />
         </div>
         <div className="container col-12 col-md-8 col-lg-9">
@@ -13,6 +14,7 @@ const Home = () => {
           <BooksHome />
         </div>
       </div>
+
     </>
   );
 };

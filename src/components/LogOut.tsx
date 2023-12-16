@@ -18,8 +18,9 @@ const LogOut = () => {
       <div className="container-fluid py-4 d-flex justify-content-center">
         {isLoggedIn ? (
           <>
-            <div className="text-center">
-              <h2 className="text-white pb-2">Bienvenido, {user?.email}</h2>
+            <div className="text-center px-2">
+              <h2 className="text-white pb-2">Bienvenido,</h2>
+              <h4 className="text-white">{user?.email}</h4>
 
               <button className="btn btn-primary" onClick={handleLogOut}>
                 Cerrar Sesión

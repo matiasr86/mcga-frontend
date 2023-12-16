@@ -8,9 +8,13 @@ import LogOut from "./LogOut";
 const RegisterForm = () => {
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
-  const { register, handleSubmit, formState: { errors }} = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const onSubmit:SubmitHandler<FieldValues> = async (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const email = data.email;
     const password = data.password;
 
@@ -31,7 +35,7 @@ const RegisterForm = () => {
   };
   return (
     <>
-      {isLoggedIn? (
+      {isLoggedIn ? (
         <LogOut />
       ) : (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -43,39 +47,39 @@ const RegisterForm = () => {
               placeholder="Example@exammple.com"
               {...register("email", {
                 required: true,
-                pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
+                pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
               })}
-              {...(errors.email?.type === "required" && (
-                <p className="text-danger">El campo es requerido</p>
-              ))}
-              {...(errors.email?.type === "pattern" && (
-                <p className="text-danger">Formato incorrecto</p>
-              ))}
             />
+            {errors.email?.type === "required" && (
+              <p className="text-danger">El campo es requerido</p>
+            )}
+            {errors.email?.type === "pattern" && (
+              <p className="text-danger">Formato incorrecto</p>
+            )}
             <div id="emailHelp" className="form-text text-white">
               Nunca compartiremos tu e-mail con alguien mas.
             </div>
           </div>
           <div className="mb-3">
-          <input
+            <input
               type="password"
               className="form-control"
               placeholder="Password"
               {...register("password", {
                 required: true,
-                maxLength: 10,
-                minLength: 3,
+                maxLength: 15,
+                minLength: 6,
               })}
-              {...(errors.password?.type === "required" && (
-                <p className="text-danger">El campo es requerido</p>
-              ))}
-              {...(errors.password?.type === "maxLength" && (
-                <p className="text-danger">Máximo 10 caracteres</p>
-              ))}
-              {...(errors.password?.type === "minLength" && (
-                <p className="text-danger">Mínimo 3 caracteres</p>
-              ))}
             />
+            {errors.password?.type === "required" && (
+              <p className="text-danger">El campo es requerido</p>
+            )}
+            {errors.password?.type === "maxLength" && (
+              <p className="text-danger">Máximo 15 caracteres</p>
+            )}
+            {errors.password?.type === "minLength" && (
+              <p className="text-danger">Mínimo 6 caracteres</p>
+            )}
           </div>
           <button type="submit" className="btn btn-primary">
             Registrar

@@ -1,11 +1,11 @@
 import Header from "./Header";
 
 const Layout = () => {
-  return ( 
+  return (
     <>
-      <Header/>
+      <Header />
     </>
-   );
-}
- 
+  );
+};
+
 export default Layout;

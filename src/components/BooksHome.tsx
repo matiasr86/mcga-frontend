@@ -19,15 +19,14 @@ const BooksHome = () => {
     fetchData();
   }, []);
 
-
   return (
     <>
       <div className="container-fluid py2">
         <div className="text-end px-3">
-        <span>
-          Cantidad de libros registrados:{" "}
-          {books.length === 0 ? "0" : books.length}
-        </span>
+          <span>
+            Cantidad de libros registrados:{" "}
+            {books.length === 0 ? "0" : books.length}
+          </span>
         </div>
         <table className="table">
           <thead>

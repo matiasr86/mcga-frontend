@@ -37,11 +37,11 @@ const Header = () => {
               </li>
             </ul>
           </div>
-            <div className="mx-auto">
-              <p className="d-flex align-items-end  text-white m-0">
-                Universidad Abierta Interamericana
-              </p>
-            </div>
+          <div className="mx-auto">
+            <p className="d-flex align-items-end  text-white m-0">
+              Universidad Abierta Interamericana
+            </p>
+          </div>
         </div>
       </nav>
     </>
