@@ -70,3 +70,7 @@ a {
   overflow-x: auto;
   max-width: 100%;
 }
+
+.justified-text {
+  text-align: justify;
+}
