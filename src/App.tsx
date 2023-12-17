@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="app-container">
       <Header />
-      <div className="content bg-dark d-flex">
+      <div className="content bg-dark justify-content-center">
       <Routes>
           <Route index element={<Home />}></Route>
           <Route path="/login" element={<Login />}></Route>

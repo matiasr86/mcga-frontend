@@ -166,7 +166,7 @@ const BookAdd = () => {
           <div className="mb-3">
             <input
               type="date"
-              className="form-control"
+              className="form-control double-size"
               {...register("fechaPublicacion", {
                 required: true,
                 validate: dateValid,

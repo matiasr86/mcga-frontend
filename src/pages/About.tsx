@@ -1,7 +1,7 @@
 const aboutUs = () => {
   return (
     <>
-      <div className="vh-100 bg-dark text-white">
+      <div className="bg-dark text-white">
         <h2>Sobre nosotros</h2>
       </div>
     </>
