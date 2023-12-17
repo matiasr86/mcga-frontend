@@ -20,7 +20,7 @@ const LogOut = () => {
           <>
             <div className="text-center px-2">
               <h2 className="text-white pb-2">Bienvenido,</h2>
-              <h4 className="text-white">{user?.email}</h4>
+              <p className="text-white">{user?.email}</p>
 
               <button className="btn btn-primary" onClick={handleLogOut}>
                 Cerrar Sesión
