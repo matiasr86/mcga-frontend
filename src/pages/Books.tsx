@@ -4,7 +4,7 @@ import BooksList from "../components/BooksList";
 const Books = () => {
   return (
     <>
-      <div className="container-fluid">
+      <div className="container-fluid bg-white">
         <h3 className="text-center">Nuestros Libros</h3>
         <div>
           <Link to="/books/add" className="btn btn-primary">Nuevo Libro</Link>

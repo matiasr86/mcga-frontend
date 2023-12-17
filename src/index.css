@@ -26,3 +26,33 @@ a {
   color: #da0b0b;
   cursor: pointer;
 }
+
+#edit{
+  color: #fdeb26;
+  margin-right: 20px; 
+  cursor: pointer;
+
+}
+
+#delete{
+  color: #da0b0b;
+  cursor: pointer;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+}
+
+.footer-container {
+  width: 100%;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
