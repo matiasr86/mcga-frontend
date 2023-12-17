@@ -9,7 +9,6 @@ import AddBook from "./pages/AddBook";
 import EditBook from "./pages/EditBook";
 import Footer from "./components/Footer";
 import NotFound from "./pages/NotFound";
-import "./index.css"; 
 import Header from "./components/Header";
 
 function App() {
