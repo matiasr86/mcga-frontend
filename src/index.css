@@ -14,3 +14,15 @@ body {
 a {
   text-decoration: none;
 }
+
+#edit{
+  color: #fdeb26;
+  margin-right: 20px; 
+  cursor: pointer;
+
+}
+
+#delete{
+  color: #da0b0b;
+  cursor: pointer;
+}

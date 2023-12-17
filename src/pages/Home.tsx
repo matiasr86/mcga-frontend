@@ -5,7 +5,7 @@ import LogIn from "../components/LogInForm";
 const Home = () => {
   return (
     <>
-      <div className="row  mx-auto">
+      <div className="row  mx-auto vh-100">
         <div className="container col-12 col-md-4 col-lg-3 px-4 py-4 bg-dark ">
           <LogIn />
         </div>

@@ -12,7 +12,9 @@ const BooksList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://mcga-tn-2023-n1-server.onrender.com/libro");
+        const response = await axios.get(
+          "https://mcga-tn-2023-n1-server.onrender.com/libro"
+        );
         const booksData: Book[] = response.data;
         setBooks(booksData);
       } catch (error) {
@@ -28,7 +30,9 @@ const BooksList = () => {
       const confirmacionEliminar = await deleteAlert();
 
       if (confirmacionEliminar) {
-        await axios.delete(`https://mcga-tn-2023-n1-server.onrender.com/libro/${Id}`);
+        await axios.delete(
+          `https://mcga-tn-2023-n1-server.onrender.com/libro/${Id}`
+        );
         // Actualizar el estado después de la eliminación
         setBooks((prevBooks) => prevBooks.filter((book) => book._id !== Id));
       }
@@ -127,18 +131,12 @@ const BooksList = () => {
                 <td>{book.editorial}</td>
                 <td className="text-center">{book.numPaginas}</td>
                 <td className="text-center">
-                  <button
-                    onClick={() => handleEdit(book._id)}
-                    className="btn btn-warning"
-                  >
-                    Editar
-                  </button>
-                  <button
-                    onClick={() => handleDelete(book._id)}
-                    className="btn btn-danger mx-1"
-                  >
-                    Eliminar
-                  </button>
+                  <a onClick={() => handleEdit(book._id)}>
+                    <i id="edit" className="fa-regular fa-pen-to-square"></i>
+                  </a>
+                  <a onClick={() => handleDelete(book._id)}>
+                  <i id="delete" className="fa-solid fa-trash" ></i>
+                  </a>
                 </td>
               </tr>
             ))}

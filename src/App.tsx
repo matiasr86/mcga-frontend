@@ -9,6 +9,7 @@ import Books from "./pages/Books";
 import AddBook from "./pages/AddBook";
 import EditBook from "./pages/EditBook"
 import Footer from "./components/Footer";
+import NotFound from "./pages/NotFound";
 function App() {
 
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/books" element={<RequireAuth><Books/></RequireAuth>}></Route>
         <Route path="/books/add" element={<RequireAuth><AddBook/></RequireAuth>}></Route>
         <Route path="/books/edit/:id" element={<RequireAuth><EditBook/></RequireAuth>}></Route>
+        <Route path="*" element={<NotFound/>}></Route>
       </Routes>
       <Footer/>
     </>
