@@ -74,3 +74,11 @@ a {
 .justified-text {
   text-align: justify;
 }
+
+.vh-70 {
+  min-height: 70vh;
+}
+
+.vh-80 {
+  min-height: 80vh;
+}

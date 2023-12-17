@@ -21,7 +21,7 @@ const BooksHome = () => {
 
   return (
     <>
-      <div className="container-fluid py2">
+      <div className="container-fluid py2 vh-70">
         <div className="text-end px-3">
           <span>
             Cantidad de libros registrados:{" "}

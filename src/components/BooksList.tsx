@@ -105,7 +105,7 @@ const BooksList = () => {
             {books.length === 0 ? "0" : books.length}
           </span>
         </div>
-        <div className="container col-12 col-md-12 col-lg-12 py-4 overflow-auto">
+        <div className="container col-12 col-md-12 col-lg-12 py-4 overflow-auto vh-70">
             <table className="table">
               <thead>
                 <tr>
