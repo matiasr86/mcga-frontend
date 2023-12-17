@@ -105,43 +105,45 @@ const BooksList = () => {
             {books.length === 0 ? "0" : books.length}
           </span>
         </div>
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">Titulo</th>
-              <th scope="col">Autor</th>
-              <th scope="col">Isbn</th>
-              <th scope="col">Género</th>
-              <th scope="col">Publicación</th>
-              <th scope="col">Editorial</th>
-              <th scope="col">Nro Páginas</th>
-              <th scope="col" className="text-center">
-                Acción
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {books.map((book: Book) => (
-              <tr key={book._id}>
-                <td>{book.titulo}</td>
-                <td>{book.autor}</td>
-                <td>{book.isbn}</td>
-                <td>{book.genero}</td>
-                <td>{formatDate(book.fechaPublicacion)}</td>
-                <td>{book.editorial}</td>
-                <td className="text-center">{book.numPaginas}</td>
-                <td className="text-center">
-                  <a onClick={() => handleEdit(book._id)}>
-                    <i id="edit" className="fa-regular fa-pen-to-square"></i>
-                  </a>
-                  <a onClick={() => handleDelete(book._id)}>
-                  <i id="delete" className="fa-solid fa-trash" ></i>
-                  </a>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="container col-12 col-md-12 col-lg-12 py-4 overflow-auto">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th scope="col">Titulo</th>
+                  <th scope="col">Autor</th>
+                  <th scope="col">Isbn</th>
+                  <th scope="col">Género</th>
+                  <th scope="col">Publicación</th>
+                  <th scope="col">Editorial</th>
+                  <th scope="col">Nro Páginas</th>
+                  <th scope="col" className="text-center">
+                    Acción
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {books.map((book: Book) => (
+                  <tr key={book._id}>
+                    <td>{book.titulo}</td>
+                    <td>{book.autor}</td>
+                    <td>{book.isbn}</td>
+                    <td>{book.genero}</td>
+                    <td>{formatDate(book.fechaPublicacion)}</td>
+                    <td>{book.editorial}</td>
+                    <td className="text-center">{book.numPaginas}</td>
+                    <td className="text-center">
+                      <a onClick={() => handleEdit(book._id)}>
+                        <i id="edit" className="fa-regular fa-pen-to-square"></i>
+                      </a>
+                      <a onClick={() => handleDelete(book._id)}>
+                      <i id="delete" className="fa-solid fa-trash" ></i>
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+        </div>
       </div>
     </>
   );
