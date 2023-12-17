@@ -12,7 +12,7 @@ const BooksList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/libro");
+        const response = await axios.get("https://mcga-tn-2023-n1-server.onrender.com/libro");
         const booksData: Book[] = response.data;
         setBooks(booksData);
       } catch (error) {
@@ -28,7 +28,7 @@ const BooksList = () => {
       const confirmacionEliminar = await deleteAlert();
 
       if (confirmacionEliminar) {
-        await axios.delete(`http://localhost:3000/libro/${Id}`);
+        await axios.delete(`https://mcga-tn-2023-n1-server.onrender.com/libro/${Id}`);
         // Actualizar el estado después de la eliminación
         setBooks((prevBooks) => prevBooks.filter((book) => book._id !== Id));
       }

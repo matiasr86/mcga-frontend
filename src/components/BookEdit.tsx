@@ -16,7 +16,7 @@ const BookEdit = () => {
     const getBook = async () => {
       try {
         // Realizar una solicitud a la API para obtener los datos del libro por id
-        const response = await axios.get(`http://localhost:3000/libro/${id}`);
+        const response = await axios.get(`https://mcga-tn-2023-n1-server.onrender.com/libro/${id}`);
         setBook(response.data);
       } catch (error) {
         console.error("Error al obtener los datos del libro", error);
@@ -54,7 +54,7 @@ const BookEdit = () => {
   const onSubmit: SubmitHandler<BookToAdd> = async (data) => {
     try {
       const response = await axios.put(
-        `http://localhost:3000/libro/${id}`,
+        `https://mcga-tn-2023-n1-server.onrender.com/libro/${id}`,
         data
       );
       // Manejar la respuesta del servidor según sea necesario

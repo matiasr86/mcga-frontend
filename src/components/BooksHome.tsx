@@ -8,7 +8,7 @@ const BooksHome = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/libro");
+        const response = await axios.get("https://mcga-tn-2023-n1-server.onrender.com/libro");
         const booksData: Book[] = response.data;
         setBooks(booksData);
       } catch (error) {

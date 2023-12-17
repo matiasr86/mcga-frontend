@@ -15,7 +15,7 @@ const BookAdd = () => {
 
   const onSubmit: SubmitHandler<BookToAdd> = async (data) => {
     try {
-      const response = await axios.post("http://localhost:3000/libro", data);
+      const response = await axios.post("https://mcga-tn-2023-n1-server.onrender.com/libro", data);
       // Manejar la respuesta del servidor según sea necesario
       console.log("Libro agregado con éxito:", response.data);
       successAlert();
