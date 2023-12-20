@@ -4,6 +4,7 @@ import axios from "axios";
 
 const BooksHome = () => {
   const [books, setBooks] = useState<Book[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -11,6 +12,7 @@ const BooksHome = () => {
         const response = await axios.get("https://mcga-tn-2023-n1-server.onrender.com/libro");
         const booksData: Book[] = response.data;
         setBooks(booksData);
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching books:", error);
       }
@@ -37,6 +39,7 @@ const BooksHome = () => {
               <th scope="col">Nro Páginas</th>
             </tr>
           </thead>
+          {isLoading? <h3>Cargando...</h3> : ''}
           <tbody>
             {books.map((books: Book) => (
               <tr key={books._id}>

@@ -4,6 +4,7 @@ import { SubmitHandler, useForm, FieldValues } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import LogOut from "./LogOut";
 import { useAuth } from "../context/AuthProvider";
+import swal from "sweetalert";
 
 const LogInForm = () => {
   const { isLoggedIn } = useAuth();
@@ -29,8 +30,18 @@ const LogInForm = () => {
       localStorage.setItem("User", JSON.stringify(user));
       navigate("/");
     } catch (error) {
+      errorAlert(error)
       console.log(error);
     }
+  };
+
+  const errorAlert = (err : unknown) => {
+    swal({
+      title: "Log In",
+      text: `Error al intentar iniciar sesión, ${err}`,
+      icon: "error",
+      timer: 8000,
+    });
   };
 
   const redireccionar = () => {

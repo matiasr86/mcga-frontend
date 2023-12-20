@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import { useAuth } from "../context/AuthProvider";
 import LogOut from "./LogOut";
+import swal from "sweetalert";
 
 const RegisterForm = () => {
   const { isLoggedIn } = useAuth();
@@ -30,9 +31,20 @@ const RegisterForm = () => {
       localStorage.setItem("User", JSON.stringify(user));
       navigate("/");
     } catch (error) {
+      errorAlert(error);
       console.log(error);
     }
   };
+
+  const errorAlert = (err : unknown) => {
+    swal({
+      title: "Registro",
+      text: `Error al intentar nuevo registro, ${err}`,
+      icon: "error",
+      timer: 8000,
+    });
+  };
+
   return (
     <>
       {isLoggedIn ? (

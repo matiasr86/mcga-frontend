@@ -7,6 +7,7 @@ import swal from "sweetalert";
 
 const BooksList = () => {
   const [books, setBooks] = useState<Book[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,6 +18,7 @@ const BooksList = () => {
         );
         const booksData: Book[] = response.data;
         setBooks(booksData);
+        setIsLoading(false);
       } catch (error) {
         console.error("Error en la carga de libros:", error);
       }
@@ -121,6 +123,7 @@ const BooksList = () => {
                   </th>
                 </tr>
               </thead>
+              {isLoading? <h3>Cargando...</h3> : ''}
               <tbody>
                 {books.map((book: Book) => (
                   <tr key={book._id}>
