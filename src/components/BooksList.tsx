@@ -123,7 +123,7 @@ const BooksList = () => {
                   </th>
                 </tr>
               </thead>
-              {isLoading? <h3>Cargando...</h3> : ''}
+              {isLoading? <h3>Cargando...</h3> : (books.length === 0)? 'No hay libros registrados' : ''}
               <tbody>
                 {books.map((book: Book) => (
                   <tr key={book._id}>

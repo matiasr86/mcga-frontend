@@ -39,7 +39,7 @@ const BooksHome = () => {
               <th scope="col">Nro Páginas</th>
             </tr>
           </thead>
-          {isLoading? <h3>Cargando...</h3> : ''}
+          {isLoading? <h3>Cargando...</h3> : (books.length === 0)? 'No hay libros registrados' : ''}
           <tbody>
             {books.map((books: Book) => (
               <tr key={books._id}>
