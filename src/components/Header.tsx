@@ -26,12 +26,12 @@ const Header = () => {
                 </Link>
               </li>
               <li className="nav-item mx-2">
-                <Link className="text-white" to={"/Books"}>
+                <Link className="text-white" to={"/books"}>
                   Libros
                 </Link>
               </li>
               <li className="nav-item mx-2">
-                <Link className="text-white" to={"/About"}>
+                <Link className="text-white" to={"/about"}>
                   Nosotros
                 </Link>
               </li>

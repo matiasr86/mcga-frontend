@@ -8,8 +8,8 @@ import { useAuth } from "../context/AuthProvider";
 const RequireAuth: React.FC<{ children: ReactNode }> = ({ children }) => {
   const { isLoggedIn } = useAuth();
   const { setIsLoggedIn } = useAuth();
-  const tokenGuardado = localStorage.getItem('Token');
-  if (!isLoggedIn || !tokenGuardado)  {
+  const tokenSaved = localStorage.getItem('Token');
+  if (!isLoggedIn || !tokenSaved)  {
     setIsLoggedIn(false)
     signOut(auth);
     localStorage.removeItem("Token");
